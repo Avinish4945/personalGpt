@@ -11,10 +11,10 @@ export default function Navbar() {
 
         <div className="flex gap-4">
           <Link
-            to="/dashboard"
+            to="/login"
             className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white"
           >
-            Dashboard
+            Login
           </Link>
         </div>
 

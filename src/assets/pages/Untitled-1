@@ -1,0 +1,17 @@
+src/
+├── assets/
+├── components/
+│   ├── Navbar.jsx
+│   ├── Sidebar.jsx
+│   ├── GPTCard.jsx
+│   ├── StatCard.jsx
+│   ├── ChatBubble.jsx
+│   └── MessageInput.jsx
+├── pages/
+│   ├── LandingPage.jsx
+│   ├── Dashboard.jsx
+│   └── ChatPage.jsx
+├── routes/
+│   └── AppRoutes.jsx
+├── App.jsx
+└── main.jsx

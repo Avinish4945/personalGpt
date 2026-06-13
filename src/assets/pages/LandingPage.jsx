@@ -43,7 +43,7 @@ return ( <div className="min-h-screen bg-[#0B1020] relative overflow-hidden">
       <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
 
         <Link
-          to="/dashboard"
+          to="/signup"
           className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white px-8 py-4 rounded-2xl shadow-lg shadow-blue-600/20"
         >
           Create GPT
