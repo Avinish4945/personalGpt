@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const authMiddleware = (req,res,next)=>{
+    console.log("Authorization Header:", req.headers.authorization);
 
     const authHeader =
     req.headers.authorization;
@@ -29,13 +31,15 @@ const authMiddleware = (req,res,next)=>{
         next();
 
     }
-    catch(error){
+   catch(error){
 
-        return res.status(401).json({
-            message:"Invalid token"
-        });
+    console.log("JWT Error:", error.message);
 
-    }
+    return res.status(401).json({
+        message:error.message
+    });
+
+}
 
 }
 

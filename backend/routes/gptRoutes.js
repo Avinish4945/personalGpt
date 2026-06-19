@@ -14,19 +14,19 @@ getSingleGPT
 } = require("../controllers/gptController");
 
 router.post(
-"/gpt",
+"/",
 authMiddleware,
 createGPT
 );
 
 router.get(
-"/gpt",
+"/",
 authMiddleware,
 getMyGPTs
 );
 
 router.get(
-"/gpt:id",
+"/:id",
 authMiddleware,
 getSingleGPT
 );

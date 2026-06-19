@@ -30,6 +30,10 @@ app.use(
   "/api/chatg",
   require("./routes/chatRoutes")
 );
+const documentRoutes =
+require("./routes/documentRoutes");
+
+app.use("/api/documents", documentRoutes);
 
 app.listen(
   process.env.PORT,
