@@ -33,7 +33,10 @@ app.use(
 const documentRoutes =
 require("./routes/documentRoutes");
 
-app.use("/api/documents", documentRoutes);
+app.use(
+  "/api/documents",
+  require("./routes/documentRoutes")
+);
 
 app.listen(
   process.env.PORT,

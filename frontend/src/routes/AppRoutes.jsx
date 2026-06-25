@@ -16,7 +16,7 @@ export default function AppRoutes() {
       <Route path="/chat" element={<ChatPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/chatg" element={<Chat/>} />
+      <Route path="/chatg/:id" element={<Chat/>} />
    
       
     </Routes>

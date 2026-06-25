@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 
+
 export default function Dashboard() {
 const API_URL =
 import.meta.env.VITE_API_URL;
@@ -16,10 +17,15 @@ const [institutionType, setInstitutionType] = useState("");
 const [description, setDescription] = useState("");
 const [gpts, setgpts] = useState([]);
 
+const [documentCount, setDocumentCount] = useState(0);
+
 useEffect(()=>{
    fetchGPTs();
-    console.log(gpts);
 },[]);
+
+useEffect(()=>{
+   console.log(gpts);
+},[gpts]);
 
    const fetchGPTs = async()=>{
    const res = await axios.get(`${API_URL}/gpts`, {
@@ -31,6 +37,40 @@ useEffect(()=>{
    setgpts(res.data);
 }
 
+
+const handleDelete = async(id)=>{
+
+    const ok = window.confirm(
+        "Delete this GPT?"
+    );
+
+    if(!ok) return;
+
+    try{
+
+        await axios.delete(
+
+            `${API_URL}/gpts/${id}`,
+
+            {
+                headers:{
+                    Authorization:
+                    `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+
+        );
+
+        fetchGPTs();
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+};
 
 const handleCreateGPT = async () => {
 
@@ -60,9 +100,9 @@ const handleCreateGPT = async () => {
       }
 
     );
-    setShowModal(false);
-   
     console.log(response.data);
+setShowModal(false);
+await fetchGPTs();
 
   }
   catch(error){
@@ -86,22 +126,39 @@ const handleCreateGPT = async () => {
           Dashboard
         </h1>
 
-        <div className="grid md:grid-cols-4 gap-4 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
 
-          <StatCard title="Total GPTs" value="12" />
-          <StatCard title="Documents" value="230" />
-          <StatCard title="Chats" value="25K" />
-          <StatCard title="Users" value="8K" />
+          <StatCard
+  title="Total GPTs"
+  value={gpts.length}
+/>
+      <StatCard
+  title="Documents"
+  value={documentCount}
+/>
+       <StatCard
+  title="Chats"
+  value="--"
+/>
+          <StatCard
+  title="Storage"
+  value="--"
+/>
 
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mt-10">
 
           {gpts.map((gpt, index) => (
-            <GPTCard
-              key={index}
-              {...gpt}
-            />
+           <GPTCard
+  key={gpt._id}
+  id={gpt._id}
+  name={gpt.name}
+  type={gpt.institutionType}
+  docs={gpt.docs}
+  chats={gpt.chats}
+    handleDelete={handleDelete}
+/>
           ))}
           
 

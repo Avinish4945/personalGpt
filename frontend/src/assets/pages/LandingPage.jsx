@@ -16,169 +16,98 @@ return ( <div className="min-h-screen bg-[#0B1020] relative overflow-hidden">
 
   <Navbar />
 
-  {/* Hero Section */}
-  <section className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-24">
+ <section className="relative overflow-hidden">
 
-    <div className="text-center">
+  {/* Background Glow */}
+  <div className="absolute inset-0 -z-10">
 
-      <span className="inline-flex items-center rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 text-sm text-blue-300">
-        🚀 AI-Powered Knowledge Platform
+    <div className="absolute left-1/2 top-32 -translate-x-1/2 w-[700px] h-[700px] bg-blue-600/20 blur-[180px] rounded-full"></div>
+
+    <div className="absolute left-20 top-60 w-80 h-80 bg-violet-600/10 blur-[150px] rounded-full"></div>
+
+  </div>
+
+  <div className="max-w-7xl mx-auto px-6 py-24 text-center">
+
+    {/* Badge */}
+
+    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-sm">
+
+      ✨ AI Powered Knowledge Platform
+
+    </div>
+
+    {/* Heading */}
+
+    <h1 className="mt-8 text-6xl font-extrabold leading-tight text-white">
+
+      Build AI Assistants
+
+      <br />
+
+      <span className="bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">
+
+        That Know Your Institution
+
       </span>
 
-      <h1 className="mt-8 text-6xl md:text-7xl font-black text-white leading-tight">
-        Create AI Assistants
-        <br />
+    </h1>
 
-        <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
-          For Your Institution
-        </span>
-      </h1>
+    {/* Description */}
 
-      <p className="text-slate-400 text-xl mt-8 max-w-3xl mx-auto leading-relaxed">
-        Upload PDFs, policies, manuals, notes, regulations,
-        and institutional knowledge.
-        Let AI answer questions instantly.
-      </p>
+    <p className="mt-8 max-w-3xl mx-auto text-xl text-slate-400 leading-9">
 
-      <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+      Upload PDFs, policies, manuals, SOPs, and institutional
+      documents. InstitutionGPT creates an AI assistant that
+      answers questions using your organization's own knowledge.
 
-        <Link
-          to="/signup"
-          className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white px-8 py-4 rounded-2xl shadow-lg shadow-blue-600/20"
-        >
-          Create GPT
-        </Link>
+    </p>
 
-        <button className="border border-white/10 hover:border-white/30 bg-white/5 backdrop-blur-xl text-white px-8 py-4 rounded-2xl transition-all duration-300">
-          Watch Demo
-        </button>
+    {/* Buttons */}
+
+    <div className="mt-12 flex justify-center gap-5">
+
+      <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 text-white font-semibold hover:scale-105 transition">
+
+        🚀 Get Started Free
+
+      </button>
+
+      <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/5 text-white hover:bg-white/10 transition">
+
+        ▶ Watch Demo
+
+      </button>
+
+    </div>
+
+    {/* Feature Chips */}
+
+    <div className="mt-10 flex justify-center flex-wrap gap-4">
+
+      <div className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">
+
+        📄 Upload PDFs
+
+      </div>
+
+      <div className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">
+
+        ⚡ Instant AI Answers
+
+      </div>
+
+      <div className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300">
+
+        🔒 Secure Authentication
 
       </div>
 
     </div>
 
-    {/* AI Dashboard Preview */}
+  </div>
 
-    <div className="mt-24 max-w-6xl mx-auto">
-
-      <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl">
-
-        {/* Window Header */}
-
-        <div className="flex gap-3 mb-8">
-
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-
-            <h3 className="text-white font-bold text-lg">
-              ABC College GPT
-            </h3>
-
-            <p className="text-slate-400 mt-2">
-              25 Documents Uploaded
-            </p>
-
-            <div className="mt-4 h-2 bg-slate-700 rounded-full overflow-hidden">
-
-              <div className="w-[80%] h-full bg-blue-500"></div>
-
-            </div>
-
-          </div>
-
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-
-            <h3 className="text-white font-bold text-lg">
-              Questions Answered
-            </h3>
-
-            <p className="text-5xl font-black text-blue-400 mt-4">
-              12.4K
-            </p>
-
-          </div>
-
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-
-            <h3 className="text-white font-bold text-lg">
-              Active Users
-            </h3>
-
-            <p className="text-5xl font-black text-violet-400 mt-4">
-              3.8K
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  {/* Features Section */}
-
-  <section className="relative z-10 max-w-7xl mx-auto px-6 pb-24">
-
-    <h2 className="text-4xl font-bold text-center text-white mb-14">
-      Why Choose InstitutionGPT?
-    </h2>
-
-    <div className="grid md:grid-cols-3 gap-8">
-
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-
-        <h3 className="text-white text-xl font-bold">
-          Upload Knowledge
-        </h3>
-
-        <p className="text-slate-400 mt-3">
-          Upload PDFs, DOCX, TXT files, manuals,
-          policies and institutional documents.
-        </p>
-
-      </div>
-
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-
-        <h3 className="text-white text-xl font-bold">
-          AI Search
-        </h3>
-
-        <p className="text-slate-400 mt-3">
-          Users can ask questions naturally
-          and receive instant AI-powered answers.
-        </p>
-
-      </div>
-
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-
-        <h3 className="text-white text-xl font-bold">
-          Share Publicly
-        </h3>
-
-        <p className="text-slate-400 mt-3">
-          Create an AI assistant for your organization
-          and share it with students, employees or customers.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
+</section>
 
 </div>
 )

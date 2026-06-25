@@ -8,8 +8,12 @@ const upload =
 require("../middleware/uploadMiddleware");
 
 const {
-  uploadDocument,
+  uploadDocument, getDocuments,deleteDocument
 } = require("../controllers/DocumentController");
+
+// const {
+//   getDocuments,
+// }=require("../controllers/DocumentController")
 
 router.post(
   "/upload/:gptId",
@@ -17,5 +21,14 @@ router.post(
   upload.single("file"),
   uploadDocument
 );
-
+router.get(
+  "/:gptId",
+  authMiddleware,
+  getDocuments
+);
+router.delete(
+  "/:documentId",
+  authMiddleware,
+  deleteDocument
+);
 module.exports = router;

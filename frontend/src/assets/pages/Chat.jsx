@@ -1,7 +1,79 @@
 import { useState } from "react";
 import axios from "axios";
-export default function Chat() {
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
+
+export default function Chat() {
+const { id } = useParams();
+
+const [file, setFile] = useState(null);
+const [documents, setDocuments] = useState([]);
+const [isThinking, setIsThinking] = useState(false);
+
+
+
+
+const fetchDocuments = async () => {
+  try {
+
+    const res = await axios.get(
+      `http://localhost:5000/api/documents/${id}`,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    );
+
+    setDocuments(res.data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+useEffect(() => {
+  fetchDocuments();
+}, [id]);
+
+const handleUpload = async () => {
+
+  if (!file) return;
+
+  try {
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    const response = await axios.post(
+
+      `http://localhost:5000/api/documents/upload/${id}`,
+
+      formData,
+
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data"
+        }
+      }
+
+    );
+
+    console.log(response.data);
+    await fetchDocuments();
+
+    alert("PDF Uploaded Successfully");
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+};
 
   const handleSend = async () => {
 
@@ -18,21 +90,36 @@ export default function Chat() {
   ]);
 
   setInput("");
+  setIsThinking(true);
 
-  const response = await axios.post(
-    "http://localhost:5000/api/chatg",
-    {
-      message: userMessage
-    }
-  );
+  try {
 
-  setMessages(prev => [
-    ...prev,
-    {
-      role: "assistant",
-      content: response.data.answer
-    }
-  ]);
+    const response = await axios.post(
+      "http://localhost:5000/api/chatg",
+      {
+        message: userMessage,
+        gptId: id
+      }
+    );
+
+    setMessages(prev => [
+      ...prev,
+      {
+        role: "assistant",
+        content: response.data.answer
+      }
+    ]);
+
+  } catch (error) {
+
+    console.log(error);
+
+  } finally {
+
+    setIsThinking(false);
+
+  }
+
 };
 
   const [messages, setMessages] = useState([
@@ -45,25 +132,29 @@ export default function Chat() {
 
   const [input, setInput] = useState("");
 
-  // const handleSend = () => {
+ const handleDelete = async (documentId) => {
 
-  //   if (!input.trim()) return;
+  try {
 
-  //   setMessages(prev => [
-  //     ...prev,
-  //     {
-  //       role: "user",
-  //       content: input
-  //     },
-  //     {
-  //       role: "assistant",
-  //       content:
-  //         "This response will come from AI later."
-  //     }
-  //   ]);
+    await axios.delete(
+      `http://localhost:5000/api/documents/${documentId}`,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    );
 
-  //   setInput("");
-  // };
+    await fetchDocuments();
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
 
   return (
     <div className="h-screen bg-[#0B1020] flex">
@@ -75,9 +166,39 @@ export default function Chat() {
           ABC College AI
         </h2>
 
-        <button className="mt-6 w-full bg-blue-600 py-3 rounded-xl text-white">
-          Upload Documents
-        </button>
+        <input
+  type="file"
+  accept=".pdf"
+  onChange={(e) => setFile(e.target.files[0])}
+  className="hidden"
+  id="pdf-upload"
+/>
+{file && (
+  <div className="mt-3 bg-white/5 border border-green-500/30 rounded-xl p-3">
+
+    <p className="text-green-400 text-sm font-medium">
+      ✅ PDF Selected
+    </p>
+
+    <p className="text-slate-300 text-sm mt-1">
+      📄 {file.name}
+    </p>
+
+  </div>
+)}
+<label
+  htmlFor="pdf-upload"
+  className="mt-6 block w-full bg-blue-600 py-3 rounded-xl text-white text-center cursor-pointer"
+>
+  Upload PDF
+</label>
+<button
+  onClick={handleUpload}
+  className="mt-3 w-full bg-green-600 py-3 rounded-xl text-white"
+>
+  Save Document
+</button>
+
 
         <div className="mt-8">
 
@@ -85,18 +206,33 @@ export default function Chat() {
             Documents
           </h3>
 
-          <div className="space-y-2">
+        <div className="space-y-2">
 
-            <div className="bg-white/5 p-3 rounded-lg text-slate-300">
-              admission.pdf
-            </div>
+  {documents.length === 0 ? (
+    <p className="text-slate-500">
+      No documents uploaded
+    </p>
+  ) : (
+    documents.map((doc) => (
+      <div
+        key={doc._id}
+        className="bg-white/5 p-3 rounded-lg flex justify-between items-center"
+      >
+        <span className="text-slate-300">
+          {doc.fileName}
+        </span>
 
-            <div className="bg-white/5 p-3 rounded-lg text-slate-300">
-              hostel_rules.pdf
-            </div>
+        <button
+          onClick={() => handleDelete(doc._id)}
+          className="text-red-400"
+        >
+          🗑
+        </button>
+      </div>
+    ))
+  )}
 
-          </div>
-
+</div>
         </div>
 
       </div>
@@ -130,6 +266,16 @@ export default function Chat() {
             </div>
 
           ))}
+
+     {isThinking && (
+  <div className="bg-white/10 rounded-2xl p-4 w-fit">
+    <div className="flex gap-1">
+      <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+      <div className="w-2 h-2 bg-white rounded-full animate-bounce delay-100"></div>
+      <div className="w-2 h-2 bg-white rounded-full animate-bounce delay-200"></div>
+    </div>
+  </div>
+)}
 
         </div>
 

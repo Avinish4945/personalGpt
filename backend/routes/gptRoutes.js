@@ -9,7 +9,8 @@ const {
 
 createGPT,
 getMyGPTs,
-getSingleGPT
+getSingleGPT,
+deleteGPT
 
 } = require("../controllers/gptController");
 
@@ -29,6 +30,12 @@ router.get(
 "/:id",
 authMiddleware,
 getSingleGPT
+);
+
+router.delete(
+    "/:id",
+    authMiddleware,
+    deleteGPT
 );
 
 module.exports = router;
