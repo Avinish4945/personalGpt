@@ -4,10 +4,12 @@ import GPTCard from "../components/GPTCard";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Dashboard() {
+  const navigate = useNavigate();
 const API_URL =
 import.meta.env.VITE_API_URL;
   const [showModal, setShowModal] = useState(false);
@@ -18,8 +20,14 @@ const [description, setDescription] = useState("");
 const [gpts, setgpts] = useState([]);
 
 const [documentCount, setDocumentCount] = useState(0);
+  const token=localStorage.getItem("token")
+
+   if(token){
+    navigate('/dashboard');
+   }
 
 useEffect(()=>{
+
    fetchGPTs();
 },[]);
 
@@ -37,6 +45,10 @@ useEffect(()=>{
    setgpts(res.data);
 }
 
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/");
+};
 
 const handleDelete = async(id)=>{
 
@@ -121,10 +133,18 @@ await fetchGPTs();
       <Sidebar />
 
       <main className="flex-1 p-8">
+        <div className='flex justify-between'>
 
         <h1 className="text-4xl font-bold text-white">
           Dashboard
         </h1>
+        <button
+  onClick={handleLogout}
+  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+>
+  Logout
+</button>
+</div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
 

@@ -7,6 +7,11 @@ const [loginPassword, setLoginPassword] = useState("");
   const API_URL = import.meta.env.VITE_API_URL;
    const navigate = useNavigate();
 
+   const token=localStorage.getItem("token")
+
+   if(token){
+    navigate('/dashboard');
+   }
 
   const handleLogin = async () => {
   try {
