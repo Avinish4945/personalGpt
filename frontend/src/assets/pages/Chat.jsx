@@ -11,14 +11,14 @@ const [file, setFile] = useState(null);
 const [documents, setDocuments] = useState([]);
 const [isThinking, setIsThinking] = useState(false);
 
-
-
+const API_URL =
+import.meta.env.VITE_API_URL;
 
 const fetchDocuments = async () => {
   try {
 
     const res = await axios.get(
-      `http://localhost:5000/api/documents/${id}`,
+      `${API_URL}/documents/${id}`,
       {
         headers: {
           Authorization:
@@ -50,7 +50,7 @@ const handleUpload = async () => {
 
     const response = await axios.post(
 
-      `http://localhost:5000/api/documents/upload/${id}`,
+      `${API_URL}/documents/upload/${id}`,
 
       formData,
 
@@ -95,7 +95,7 @@ const handleUpload = async () => {
   try {
 
     const response = await axios.post(
-      "http://localhost:5000/api/chatg",
+      `${API_URL}/chatg`,
       {
         message: userMessage,
         gptId: id
@@ -137,7 +137,7 @@ const handleUpload = async () => {
   try {
 
     await axios.delete(
-      `http://localhost:5000/api/documents/${documentId}`,
+      `${API_URL}/documents/${documentId}`,
       {
         headers: {
           Authorization:
