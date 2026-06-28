@@ -157,6 +157,7 @@ await fetchGPTs();
   type={gpt.institutionType}
   docs={gpt.docs}
   chats={gpt.chats}
+  description={gpt.description}
     handleDelete={handleDelete}
 />
           ))}
@@ -214,7 +215,7 @@ await fetchGPTs();
             onChange={(e) =>
               setInstitutionType(e.target.value)
             }
-            className="w-full mt-2 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none"
+            className="w-full mt-2  border border-white/10 rounded-xl px-4 py-3 text-red outline-none"
           >
             <option value="">Select Type</option>
             <option value="College">College</option>

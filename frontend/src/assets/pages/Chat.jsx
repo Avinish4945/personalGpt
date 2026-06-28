@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 
-export default function Chat() {
+export default function Chat({institutionType}) {
 const { id } = useParams();
 
 const [file, setFile] = useState(null);
@@ -163,7 +163,7 @@ const handleUpload = async () => {
       <div className="w-80 border-r border-white/10 bg-[#111827] p-5">
 
         <h2 className="text-white text-xl font-bold">
-          ABC College AI
+        
         </h2>
 
         <input
